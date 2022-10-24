@@ -1,10 +1,17 @@
 .App {
   text-align: center;
+  margin: auto;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.Form {
+  margin: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {

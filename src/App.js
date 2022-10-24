@@ -1,25 +1,52 @@
-import logo from './logo.svg';
+import React from 'react';
+import { students } from './students/students.js';
+import Student from './Student.jsx';
 import './App.css';
 
-function App() {
+export default function App(props) {
+  const [name, setName] = React.useState("");
+  const [data, setData] = React.useState([]);
+
+  const search = React.useRef(null);
+
+  React.useEffect(() => {
+    const results = students.filter((student) => {
+      return student.nama_lengkap.toLowerCase().indexOf(name) !== -1;
+    });
+    setData(results);
+  }, [name]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <form>
+          <input
+            type="text"
+            ref={search}
+          />
+          <button 
+            type="submit"
+            onClick={e => {
+              e.preventDefault();
+              setName(search.current.value);
+            }}
+          >
+            Cari
+          </button>
+      </form>
+
+      <div>
+        {data.map((student, i) => {
+          // console.log(student.nama_lengkap);
+          return (<Student
+            student={student}
+            key={i}
+          />)
+        })}
+      </div>
+      
     </div>
   );
 }
 
-export default App;
+// Log to console
+console.log('Hello console')
